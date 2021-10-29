@@ -3,15 +3,15 @@
   <children xsi:type="basic:TrimmedWindow" xmi:id="_gHg3oDegEeyz09OrpcilXA" elementId="com.kms.example.rcp.ui.trimmedwindow.main" label="Main" x="0" y="0" width="800" height="800">
     <children xsi:type="basic:PartSashContainer" xmi:id="_rq9ssDegEeyz09OrpcilXA" elementId="com.kms.example.rcp.ui.partsashcontainer.0" horizontal="true">
       <children xsi:type="basic:PartStack" xmi:id="_uM1zkDegEeyz09OrpcilXA" elementId="com.kms.example.rcp.ui.partstack.0">
-        <children xsi:type="basic:Part" xmi:id="_TqQ3UDehEeyz09OrpcilXA" elementId="com.kms.example.rcp.ui.part.users" label="Users"/>
+        <children xsi:type="basic:Part" xmi:id="_TqQ3UDehEeyz09OrpcilXA" elementId="com.kms.example.rcp.ui.part.users" contributionURI="bundleclass://com.kms.example.rcp.ui/com.kms.example.rcp.ui.parts.UsersPart" label="Users"/>
       </children>
     </children>
     <children xsi:type="basic:PartSashContainer" xmi:id="_vEMSUDegEeyz09OrpcilXA" elementId="com.kms.example.rcp.ui.partsashcontainer.1">
       <children xsi:type="basic:PartStack" xmi:id="_vpBdsDegEeyz09OrpcilXA" elementId="com.kms.example.rcp.ui.partstack.1">
-        <children xsi:type="basic:Part" xmi:id="_X9cjwDehEeyz09OrpcilXA" elementId="com.kms.example.rcp.ui.part.avatar" label="Avatar"/>
+        <children xsi:type="basic:Part" xmi:id="_X9cjwDehEeyz09OrpcilXA" elementId="com.kms.example.rcp.ui.part.avatar" contributionURI="bundleclass://com.kms.example.rcp.ui/com.kms.example.rcp.ui.parts.AvatarPart" label="Avatar"/>
       </children>
       <children xsi:type="basic:PartStack" xmi:id="_wEcOYDegEeyz09OrpcilXA" elementId="com.kms.example.rcp.ui.partstack.2">
-        <children xsi:type="basic:Part" xmi:id="_ZVEeADehEeyz09OrpcilXA" elementId="com.kms.example.rcp.ui.part.welcome" label="Welcome"/>
+        <children xsi:type="basic:Part" xmi:id="_ZVEeADehEeyz09OrpcilXA" elementId="com.kms.example.rcp.ui.part.welcome" contributionURI="bundleclass://com.kms.example.rcp.ui/com.kms.example.rcp.ui.parts.WelcomePart" label="Welcome"/>
       </children>
     </children>
     <trimBars xmi:id="_PcoccDelEeyz09OrpcilXA" elementId="com.kms.example.rcp.ui.trimbar.0">
