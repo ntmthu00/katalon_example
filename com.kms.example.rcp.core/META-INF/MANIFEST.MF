@@ -1,0 +1,8 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Core
+Bundle-SymbolicName: com.kms.example.rcp.core
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: KMS
+Automatic-Module-Name: com.kms.example.rcp.core
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8

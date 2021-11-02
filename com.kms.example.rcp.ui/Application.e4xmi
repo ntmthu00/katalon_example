@@ -15,16 +15,9 @@
       </children>
     </children>
     <trimBars xmi:id="_PcoccDelEeyz09OrpcilXA" elementId="com.kms.example.rcp.ui.trimbar.0">
-      <children xsi:type="menu:ToolBar" xmi:id="_PzcZ8DelEeyz09OrpcilXA" elementId="com.kms.example.rcp.ui.toolbar.main">
-        <children xsi:type="menu:HandledToolItem" xmi:id="_Xig-cDelEeyz09OrpcilXA" elementId="com.kms.example.rcp.ui.handledtoolitem.welcome" label="Welcome" command="_zh0h8DelEeyz09OrpcilXA"/>
-        <children xsi:type="menu:HandledToolItem" xmi:id="_iS-3YDelEeyz09OrpcilXA" elementId="com.kms.example.rcp.ui.handledtoolitem.about" label="About" command="_LDAe4DenEeyz09OrpcilXA"/>
-      </children>
+      <children xsi:type="menu:ToolBar" xmi:id="_PzcZ8DelEeyz09OrpcilXA" elementId="com.kms.example.rcp.ui.toolbar.main"/>
     </trimBars>
   </children>
-  <handlers xmi:id="_4bjRADelEeyz09OrpcilXA" elementId="com.kms.example.rcp.ui.handler.welcome" contributionURI="bundleclass://com.kms.example.rcp.ui/com.kms.example.rcp.ui.handlers.welcomeHandler" command="_zh0h8DelEeyz09OrpcilXA"/>
-  <handlers xmi:id="_M8V_EDenEeyz09OrpcilXA" elementId="com.kms.example.rcp.ui.handler.about" contributionURI="bundleclass://com.kms.example.rcp.ui/com.kms.example.rcp.ui.handlers.aboutHandler" command="_LDAe4DenEeyz09OrpcilXA"/>
-  <commands xmi:id="_zh0h8DelEeyz09OrpcilXA" elementId="com.kms.example.rcp.ui.command.welcome" commandName="Welcome"/>
-  <commands xmi:id="_LDAe4DenEeyz09OrpcilXA" elementId="com.kms.example.rcp.ui.command.about" commandName="About"/>
   <addons xmi:id="_fCko0TegEeyz09OrpcilXA" elementId="org.eclipse.e4.core.commands.service" contributionURI="bundleclass://org.eclipse.e4.core.commands/org.eclipse.e4.core.commands.CommandServiceAddon"/>
   <addons xmi:id="_fCko0jegEeyz09OrpcilXA" elementId="org.eclipse.e4.ui.contexts.service" contributionURI="bundleclass://org.eclipse.e4.ui.services/org.eclipse.e4.ui.services.ContextServiceAddon"/>
   <addons xmi:id="_fCko0zegEeyz09OrpcilXA" elementId="org.eclipse.e4.ui.bindings.service" contributionURI="bundleclass://org.eclipse.e4.ui.bindings/org.eclipse.e4.ui.bindings.BindingServiceAddon"/>

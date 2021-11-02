@@ -1,5 +1,12 @@
 package com.kms.example.rcp.ui.parts;
 
-public class WelcomePart {
+import javax.annotation.PostConstruct;
 
+import org.eclipse.swt.widgets.Composite;
+
+public class WelcomePart {
+	@PostConstruct
+	public void createControls(Composite parent) {
+
+	}
 }

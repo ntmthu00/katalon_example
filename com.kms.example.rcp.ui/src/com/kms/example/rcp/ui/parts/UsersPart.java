@@ -15,57 +15,29 @@ import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Table;
+import org.eclipse.swt.widgets.TableColumn;
 
 public class UsersPart {
 	private TableViewer usersTableViewer;
+	private Button btnAdd;
+	private Button btnDelete;
+	private Button btnUpdate;
 
 	@PostConstruct
 	public void createControls(Composite parent) {
 		parent.setLayout(new GridLayout(1, true));
 
-		usersTableViewer = new TableViewer(parent,
-				SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL | SWT.BORDER | SWT.FULL_SELECTION);
-		Table usersTable = usersTableViewer.getTable();
-		usersTable.setHeaderVisible(true);
-		usersTable.setLinesVisible(true);
-		GridData gridData = new GridData();
-		gridData.verticalAlignment = GridData.FILL;
-		gridData.horizontalAlignment = GridData.FILL;
-		gridData.horizontalSpan = 2;
-		gridData.grabExcessHorizontalSpace = true;
-		gridData.grabExcessVerticalSpace = true;
-		usersTableViewer.getControl().setLayoutData(gridData);
-		usersTableViewer.setContentProvider(ArrayContentProvider.getInstance());
+//		Composite tableComposite = new Composite(parent, SWT.NONE);
+//		TableColumnLayout tableLayout = new TableColumnLayout();
+//		tableComposite.setLayout(tableLayout);
 
-		TableViewerColumn colID = new TableViewerColumn(usersTableViewer, SWT.NONE);
-		colID.getColumn().setWidth(60);
-		colID.getColumn().setText("ID");
-		colID.getColumn().setResizable(true);
-		colID.getColumn().setMoveable(true);
+		createUsersTableViewer(parent);
 
-		TableViewerColumn colUsername = new TableViewerColumn(usersTableViewer, SWT.NONE);
-		colUsername.getColumn().setWidth(100);
-		colUsername.getColumn().setText("Username");
-		colUsername.getColumn().setResizable(true);
-		colUsername.getColumn().setMoveable(true);
+		Composite btnComposite = new Composite(parent, SWT.NONE);
+		btnComposite.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
+		btnComposite.setLayout(new RowLayout());
 
-		TableViewerColumn colDoB = new TableViewerColumn(usersTableViewer, SWT.NONE);
-		colDoB.getColumn().setWidth(100);
-		colDoB.getColumn().setText("Date of Birth");
-		colDoB.getColumn().setResizable(true);
-		colDoB.getColumn().setMoveable(true);
-
-		TableViewerColumn colGender = new TableViewerColumn(usersTableViewer, SWT.NONE);
-		colGender.getColumn().setWidth(100);
-		colGender.getColumn().setText("Gender");
-		colGender.getColumn().setResizable(true);
-		colGender.getColumn().setMoveable(true);
-
-		final Composite btnLayout = new Composite(parent, SWT.NONE);
-		btnLayout.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
-		btnLayout.setLayout(new RowLayout());
-
-		Button btnAdd = new Button(btnLayout, SWT.CENTER);
+		btnAdd = new Button(btnComposite, SWT.CENTER);
 		btnAdd.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
@@ -74,7 +46,7 @@ public class UsersPart {
 		});
 		btnAdd.setText("Add");
 
-		Button btnDelete = new Button(btnLayout, SWT.CENTER);
+		btnDelete = new Button(btnComposite, SWT.CENTER);
 		btnDelete.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
@@ -83,7 +55,7 @@ public class UsersPart {
 		});
 		btnDelete.setText("Delete");
 
-		Button btnUpdate = new Button(btnLayout, SWT.CENTER);
+		btnUpdate = new Button(btnComposite, SWT.CENTER);
 		btnUpdate.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
@@ -91,6 +63,46 @@ public class UsersPart {
 			}
 		});
 		btnUpdate.setText("Update");
+	}
+
+	private void createUsersTableViewer(Composite parent) {
+		usersTableViewer = new TableViewer(parent,
+				SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL | SWT.FULL_SELECTION | SWT.BORDER);
+
+		createColumns(parent, usersTableViewer);
+		final Table usersTable = usersTableViewer.getTable();
+		usersTable.setHeaderVisible(true);
+		usersTable.setLinesVisible(true);
+
+		usersTableViewer.setContentProvider(new ArrayContentProvider());
+
+		GridData gridData = new GridData();
+		gridData.verticalAlignment = GridData.FILL;
+		gridData.horizontalSpan = 2;
+		gridData.grabExcessHorizontalSpace = true;
+		gridData.grabExcessVerticalSpace = true;
+		gridData.horizontalAlignment = GridData.FILL;
+		usersTableViewer.getControl().setLayoutData(gridData);
+	}
+
+	private void createColumns(final Composite parent, final TableViewer usersTableViewer) {
+		String[] titles = { "ID", "Username", "DoB", "Gender" };
+		int[] bounds = { 100, 100, 100, 100 };
+
+		TableViewerColumn col = createTableViewerColumn(titles[0], bounds[0], 0);
+		col = createTableViewerColumn(titles[1], bounds[1], 1);
+		col = createTableViewerColumn(titles[2], bounds[2], 2);
+		col = createTableViewerColumn(titles[3], bounds[3], 3);
+	}
+
+	private TableViewerColumn createTableViewerColumn(String title, int bound, final int colNumber) {
+		final TableViewerColumn viewerColumn = new TableViewerColumn(usersTableViewer, SWT.NONE);
+		final TableColumn column = viewerColumn.getColumn();
+		column.setText(title);
+		column.setWidth(bound);
+		column.setResizable(true);
+		column.setMoveable(true);
+		return viewerColumn;
 	}
 
 	@Focus

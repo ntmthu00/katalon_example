@@ -1,5 +1,12 @@
 package com.kms.example.rcp.ui.parts;
 
-public class AvatarPart {
+import javax.annotation.PostConstruct;
 
+import org.eclipse.swt.widgets.Composite;
+
+public class AvatarPart {
+	@PostConstruct
+	public void createControls(Composite parent) {
+
+	}
 }

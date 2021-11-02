@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="ASCII"?>
+<fragment:ModelFragments xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:commands="http://www.eclipse.org/ui/2010/UIModel/application/commands" xmlns:fragment="http://www.eclipse.org/ui/2010/UIModel/fragment" xmlns:menu="http://www.eclipse.org/ui/2010/UIModel/application/ui/menu" xmi:id="_wEgiIDiYEeyjZKEIlyqs8Q">
+  <fragments xsi:type="fragment:StringModelFragment" xmi:id="_JZFkwDiZEeyjZKEIlyqs8Q" featurename="children" parentElementId="com.kms.example.rcp.ui.toolbar.main">
+    <elements xsi:type="menu:HandledToolItem" xmi:id="_Utt6sDiZEeyjZKEIlyqs8Q" elementId="com.kms.example.rcp.ui.contribute.handledtoolitem.welcome" label="Welcome" iconURI="platform:/plugin/com.kms.example.rcp.ui.contribute/icons/welcome.png" command="_14HNkDiaEeyjZKEIlyqs8Q"/>
+    <elements xsi:type="menu:HandledToolItem" xmi:id="_mcZGcDiaEeyjZKEIlyqs8Q" elementId="com.kms.example.rcp.ui.contribute.handledtoolitem.about" label="About" iconURI="platform:/plugin/com.kms.example.rcp.ui.contribute/icons/about.png" command="_3ZI7cDiaEeyjZKEIlyqs8Q"/>
+  </fragments>
+  <fragments xsi:type="fragment:StringModelFragment" xmi:id="_vE_T8DiaEeyjZKEIlyqs8Q" featurename="commands" parentElementId="com.kms.example.rcp.ui.application">
+    <elements xsi:type="commands:Command" xmi:id="_14HNkDiaEeyjZKEIlyqs8Q" elementId="com.kms.example.rcp.ui.contribute.command.welcome" commandName="Welcome"/>
+    <elements xsi:type="commands:Command" xmi:id="_3ZI7cDiaEeyjZKEIlyqs8Q" elementId="com.kms.example.rcp.ui.contribute.command.about" commandName="About"/>
+  </fragments>
+  <fragments xsi:type="fragment:StringModelFragment" xmi:id="_5A1SADiaEeyjZKEIlyqs8Q" featurename="handlers" parentElementId="com.kms.example.rcp.ui.application">
+    <elements xsi:type="commands:Handler" xmi:id="_6SixgDiaEeyjZKEIlyqs8Q" elementId="com.kms.example.rcp.ui.contribute.handler.welcome" contributionURI="bundleclass://com.kms.example.rcp.ui.contribute/com.kms.example.rcp.ui.contribute.handlers.WelcomeHandler" command="_14HNkDiaEeyjZKEIlyqs8Q"/>
+    <elements xsi:type="commands:Handler" xmi:id="_8ecoYDiaEeyjZKEIlyqs8Q" elementId="com.kms.example.rcp.ui.contribute.handler.about" contributionURI="bundleclass://com.kms.example.rcp.ui.contribute/com.kms.example.rcp.ui.contribute.handlers.AboutHandler" command="_3ZI7cDiaEeyjZKEIlyqs8Q"/>
+  </fragments>
+</fragment:ModelFragments>
