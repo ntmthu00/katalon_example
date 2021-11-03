@@ -6,3 +6,6 @@ Bundle-Version: 1.0.0.qualifier
 Bundle-Vendor: KMS
 Automatic-Module-Name: com.kms.example.rcp.core
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Require-Bundle: org.eclipse.equinox.registry;bundle-version="3.8.800",
+ org.eclipse.osgi;bundle-version="3.15.300"
+Export-Package: com.kms.example.rcp.core.object

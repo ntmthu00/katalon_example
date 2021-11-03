@@ -1,17 +1,24 @@
 package com.kms.example.rcp.core.object;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+
 public class User {
 	private String avaFilePath;
 	private int id;
 	private String username;
 	private Date dob;
-	private boolean gender;
+	private String gender;
 	private String firstName;
 	private String lastName;
 	private String password;
+	private PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(this);
 
-	public User(String avaFilePath, int id, String username, Date dob, boolean gender, String firstName,
-			String lastName, String password) {
+	public User() {
+	}
+
+	public User(String avaFilePath, int id, String username, Date dob, String gender, String firstName, String lastName,
+			String password) {
 		super();
 		this.avaFilePath = avaFilePath;
 		this.id = id;
@@ -21,6 +28,23 @@ public class User {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.password = password;
+	}
+
+	public User(String username, String gender, String firstName, String lastName, String password) {
+		super();
+		this.username = username;
+		this.gender = gender;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.password = password;
+	}
+
+	public void addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
+		propertyChangeSupport.addPropertyChangeListener(propertyName, listener);
+	}
+
+	public void removePropertyChangeListener(PropertyChangeListener listener) {
+		propertyChangeSupport.removePropertyChangeListener(listener);
 	}
 
 	public String getAvaFilePath() {
@@ -36,7 +60,7 @@ public class User {
 	}
 
 	public void setId(int id) {
-		this.id = id;
+		propertyChangeSupport.firePropertyChange("ID", this.id, this.id = id);
 	}
 
 	public String getUsername() {
@@ -44,7 +68,7 @@ public class User {
 	}
 
 	public void setUsername(String username) {
-		this.username = username;
+		propertyChangeSupport.firePropertyChange("Username", this.username, this.username = username);
 	}
 
 	public Date getDob() {
@@ -52,15 +76,15 @@ public class User {
 	}
 
 	public void setDob(Date dob) {
-		this.dob = dob;
+		propertyChangeSupport.firePropertyChange("DoB", this.dob, this.dob = dob);
 	}
 
-	public boolean getGender() {
+	public String getGender() {
 		return gender;
 	}
 
-	public void setGender(boolean gender) {
-		this.gender = gender;
+	public void setGender(String gender) {
+		propertyChangeSupport.firePropertyChange("Gender", this.gender, this.gender = gender);
 	}
 
 	public String getFirstName() {
