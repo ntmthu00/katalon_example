@@ -1,6 +1,9 @@
 package com.kms.example.rcp.ui.constants;
 
 public class MessageConstants {
+	private MessageConstants() {
+	}
+
 	public static final String UserDetailsDialog_BTN_ADD = "Add";
 	public static final String UserDetailsDialog_BTN_CANCEL = "Cancel";
 	public static final String UserDetailsDialog_BTN_CHOOSE_FILE = "Choose file...";

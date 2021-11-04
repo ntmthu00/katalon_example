@@ -1,10 +1,15 @@
 package com.kms.example.rcp.ui.parts;
 
 import javax.annotation.PostConstruct;
+import javax.inject.Inject;
 
+import org.eclipse.e4.core.services.events.IEventBroker;
 import org.eclipse.e4.ui.di.Focus;
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.ColumnLabelProvider;
+import org.eclipse.jface.viewers.ISelectionChangedListener;
+import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.swt.SWT;
@@ -21,13 +26,17 @@ import org.eclipse.ui.part.ViewPart;
 
 import com.kms.example.rcp.core.object.User;
 import com.kms.example.rcp.core.object.UserProvider;
+import com.kms.example.rcp.ui.constants.EventConstants;
 import com.kms.example.rcp.ui.constants.MessageConstants;
 
 public class UsersPart extends ViewPart {
-	private TableViewer usersTableViewer;
 	private Button btnAdd;
 	private Button btnDelete;
 	private Button btnUpdate;
+
+	@Inject
+	private IEventBroker eventBroker;
+	private TableViewer usersTableViewer;
 
 	@PostConstruct
 	public void createPartControl(Composite parent) {
@@ -79,7 +88,7 @@ public class UsersPart extends ViewPart {
 
 	private void createUsersTableViewer(Composite parent) {
 		usersTableViewer = new TableViewer(parent,
-				SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL | SWT.FULL_SELECTION | SWT.BORDER);
+				SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL | SWT.HIDE_SELECTION | SWT.BORDER);
 
 		createColumns(parent, usersTableViewer);
 		final Table usersTable = usersTableViewer.getTable();
@@ -97,6 +106,15 @@ public class UsersPart extends ViewPart {
 		gridData.grabExcessVerticalSpace = true;
 		gridData.horizontalAlignment = GridData.FILL;
 		usersTableViewer.getControl().setLayoutData(gridData);
+
+		usersTableViewer.addSelectionChangedListener(new ISelectionChangedListener() {
+			@Override
+			public void selectionChanged(SelectionChangedEvent e) {
+				IStructuredSelection selection = usersTableViewer.getStructuredSelection();
+				User user = User.class.cast(selection.getFirstElement());
+				eventBroker.send(EventConstants.TOPIC_ROW_SELECTION, user.getAvaFilePath());
+			}
+		});
 	}
 
 	private void createColumns(final Composite parent, final TableViewer usersTableViewer) {
