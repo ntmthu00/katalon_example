@@ -58,7 +58,7 @@ public class UsersPart extends ViewPart {
 			public void widgetSelected(SelectionEvent e) {
 				System.out.print("Add button pressed\n");
 //				UserProvider users = UserProvider.INSTANCE;
-//				AddUserDialog dialog = new AddUserDialog(getViewSite().getShell());
+//				UsersDetailDialog dialog = new UsersDetailDialog(getViewSite().getShell());
 //				dialog.open();
 //				if (dialog.getUser() != null) {
 //					users.getUsers().add(dialog.getUser());
@@ -113,6 +113,8 @@ public class UsersPart extends ViewPart {
 			@Override
 			public void selectionChanged(SelectionChangedEvent e) {
 				IStructuredSelection selection = usersTableViewer.getStructuredSelection();
+				btnUpdate.setEnabled(true);
+				btnDelete.setEnabled(true);
 				User user = User.class.cast(selection.getFirstElement());
 				eventBroker.send(EventConstants.TOPIC_ROW_SELECTION_AVATAR, user.getAvaFilePath());
 				eventBroker.send(EventConstants.TOPIC_ROW_SELECTION_WELCOME, user.getUsername());

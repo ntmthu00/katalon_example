@@ -14,7 +14,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.PaintEvent;
 import org.eclipse.swt.events.PaintListener;
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.swt.layout.FillLayout;
+import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Composite;
 import org.osgi.framework.Bundle;
@@ -32,15 +32,12 @@ public class AvatarPart {
 
 	@PostConstruct
 	public void createControls(Composite parent) {
-		parent.setLayout(new FillLayout());
-
-		canvas = new Canvas(parent, SWT.NONE);
+		canvas = new Canvas(parent, SWT.BORDER);
 
 		EventHandler handler = new EventHandler() {
 			public void handleEvent(final Event e) {
 				if (parent.getDisplay().getThread() == Thread.currentThread()) {
 					String avatarFilePath = (String) e.getProperty(IEventBroker.DATA);
-					System.out.println(avatarFilePath);
 					Bundle bundle = Platform.getBundle("com.kms.example.rcp.core");
 					URL url = FileLocator.find(bundle, new Path(avatarFilePath), null);
 					ImageDescriptor imageDesc = ImageDescriptor.createFromURL(url);
@@ -48,9 +45,13 @@ public class AvatarPart {
 
 					canvas.addPaintListener(new PaintListener() {
 						public void paintControl(PaintEvent e) {
-							e.gc.drawImage(avatarImage, 0, 0);
+							Rectangle imgBounds = avatarImage.getBounds();
+							Rectangle canvasBounds = canvas.getBounds();
+							e.gc.drawImage(avatarImage, 0, 0, imgBounds.width, imgBounds.height, 0, 0,
+									canvasBounds.width, canvasBounds.height);
 						}
 					});
+					canvas.redraw();
 				}
 			}
 		};
