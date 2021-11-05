@@ -11,7 +11,8 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.e4.core.services.events.IEventBroker;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.graphics.GC;
+import org.eclipse.swt.events.PaintEvent;
+import org.eclipse.swt.events.PaintListener;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Canvas;
@@ -33,7 +34,7 @@ public class AvatarPart {
 	public void createControls(Composite parent) {
 		parent.setLayout(new FillLayout());
 
-		canvas = new Canvas(parent, SWT.NO_REDRAW_RESIZE);
+		canvas = new Canvas(parent, SWT.NONE);
 
 		EventHandler handler = new EventHandler() {
 			public void handleEvent(final Event e) {
@@ -45,17 +46,15 @@ public class AvatarPart {
 					ImageDescriptor imageDesc = ImageDescriptor.createFromURL(url);
 					avatarImage = imageDesc.createImage();
 
-					GC gc = new GC(avatarImage);
-					gc.dispose();
-//					canvas.addPaintListener(new PaintListener() {
-//						public void paintControl(PaintEvent e) {
-//							e.gc.drawImage(avatarImage, 10, 10);
-//						}
-//					});
+					canvas.addPaintListener(new PaintListener() {
+						public void paintControl(PaintEvent e) {
+							e.gc.drawImage(avatarImage, 0, 0);
+						}
+					});
 				}
 			}
 		};
 
-		eventBroker.subscribe(EventConstants.TOPIC_ROW_SELECTION, handler);
+		eventBroker.subscribe(EventConstants.TOPIC_ROW_SELECTION_AVATAR, handler);
 	}
 }

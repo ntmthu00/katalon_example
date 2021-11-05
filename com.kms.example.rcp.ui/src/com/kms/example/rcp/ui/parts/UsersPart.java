@@ -68,6 +68,7 @@ public class UsersPart extends ViewPart {
 		btnAdd.setText(MessageConstants.UsersPart_BTN_ADD);
 
 		btnDelete = new Button(btnComposite, SWT.CENTER);
+		btnDelete.setEnabled(false);
 		btnDelete.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
@@ -77,6 +78,7 @@ public class UsersPart extends ViewPart {
 		btnDelete.setText(MessageConstants.UsersPart_BTN_DELETE);
 
 		btnUpdate = new Button(btnComposite, SWT.CENTER);
+		btnUpdate.setEnabled(false);
 		btnUpdate.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
@@ -112,7 +114,8 @@ public class UsersPart extends ViewPart {
 			public void selectionChanged(SelectionChangedEvent e) {
 				IStructuredSelection selection = usersTableViewer.getStructuredSelection();
 				User user = User.class.cast(selection.getFirstElement());
-				eventBroker.send(EventConstants.TOPIC_ROW_SELECTION, user.getAvaFilePath());
+				eventBroker.send(EventConstants.TOPIC_ROW_SELECTION_AVATAR, user.getAvaFilePath());
+				eventBroker.send(EventConstants.TOPIC_ROW_SELECTION_WELCOME, user.getUsername());
 			}
 		});
 	}

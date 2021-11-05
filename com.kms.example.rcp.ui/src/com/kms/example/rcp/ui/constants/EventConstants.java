@@ -5,5 +5,6 @@ public class EventConstants {
 	}
 
 	public static final String TOPIC_BASE = "com/kms/example/rcp/ui/";
-	public static final String TOPIC_ROW_SELECTION = TOPIC_BASE + "selection";
+	public static final String TOPIC_ROW_SELECTION_AVATAR = TOPIC_BASE + "selection_avt";
+	public static final String TOPIC_ROW_SELECTION_WELCOME = TOPIC_BASE + "selection_wlc";
 }

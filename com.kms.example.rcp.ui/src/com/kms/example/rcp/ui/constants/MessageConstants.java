@@ -28,4 +28,5 @@ public class MessageConstants {
 	public static final String UsersPart_TBL_COL_GENDER = "Gender";
 	public static final String UsersPart_TBL_COL_ID = "ID";
 	public static final String UsersPart_TBL_COL_USERNAME = "Username";
+	public static final String WelcomePart_BASE_MSG = "Welcome ";
 }
