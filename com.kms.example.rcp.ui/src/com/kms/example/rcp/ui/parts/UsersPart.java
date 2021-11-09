@@ -30,6 +30,9 @@ import com.kms.example.rcp.ui.constants.EventConstants;
 import com.kms.example.rcp.ui.constants.MessageConstants;
 
 public class UsersPart extends ViewPart {
+	public UsersPart() {
+	}
+
 	private Button btnAdd;
 	private Button btnDelete;
 	private Button btnUpdate;
@@ -52,7 +55,7 @@ public class UsersPart extends ViewPart {
 		btnComposite.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
 		btnComposite.setLayout(new RowLayout());
 
-		btnAdd = new Button(btnComposite, SWT.CENTER);
+		btnAdd = new Button(btnComposite, SWT.PUSH);
 		btnAdd.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
@@ -67,7 +70,7 @@ public class UsersPart extends ViewPart {
 		});
 		btnAdd.setText(MessageConstants.UsersPart_BTN_ADD);
 
-		btnDelete = new Button(btnComposite, SWT.CENTER);
+		btnDelete = new Button(btnComposite, SWT.PUSH);
 		btnDelete.setEnabled(false);
 		btnDelete.addSelectionListener(new SelectionAdapter() {
 			@Override
@@ -77,7 +80,7 @@ public class UsersPart extends ViewPart {
 		});
 		btnDelete.setText(MessageConstants.UsersPart_BTN_DELETE);
 
-		btnUpdate = new Button(btnComposite, SWT.CENTER);
+		btnUpdate = new Button(btnComposite, SWT.PUSH);
 		btnUpdate.setEnabled(false);
 		btnUpdate.addSelectionListener(new SelectionAdapter() {
 			@Override

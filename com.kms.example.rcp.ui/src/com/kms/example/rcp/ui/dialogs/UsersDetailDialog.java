@@ -1,34 +1,42 @@
 package com.kms.example.rcp.ui.dialogs;
 
-import org.eclipse.jface.dialogs.IMessageProvider;
-import org.eclipse.jface.dialogs.TitleAreaDialog;
-import org.eclipse.jface.resource.JFaceResources;
+import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Button;
-import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.DateTime;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
 import com.kms.example.rcp.core.object.User;
+import com.kms.example.rcp.ui.constants.MessageConstants;
 
-public class UsersDetailDialog extends TitleAreaDialog {
+public class UsersDetailDialog extends Dialog {
 
-	private Text textUsername;
-	private Text textPassword;
-	private Text textFirstName;
-	private Text textLastName;
+	private Text txtUsername;
+	private String username = "";
+	private Text txtPassword;
+	private String password = "";
+	private Text txtFirstName;
+	private String firstName = "";
+	private Text txtLastName;
+	private String lastName = "";
+	private Text txtAvatarFilePath;
+	private String avatarFilePath = "";
 	private User user;
-	private Button btnChoose;
+	private Button rbtnMale;
+	private Button rbtnFemale;
+	private Button btnChooseFile;
 	private Button btnAdd;
 	private Button btnCancel;
-	private Combo combo1;
+	private Button btnUpdate;
+	private DateTime dtDOB;
 
 	public User getUser() {
 		return user;
@@ -39,65 +47,132 @@ public class UsersDetailDialog extends TitleAreaDialog {
 	}
 
 	@Override
-	protected Control createContents(Composite parent) {
-		Control contents = super.createContents(parent);
-		setTitle("Add a new user");
-		setMessage("Please enter the data of the new user", IMessageProvider.INFORMATION);
-		return contents;
-	}
-
-	@Override
 	protected Control createDialogArea(Composite parent) {
-		GridLayout layout = new GridLayout();
-		layout.numColumns = 2;
-		parent.setLayout(layout);
+		Composite container = (Composite) super.createDialogArea(parent);
+		GridLayout layout = new GridLayout(2, false);
+		layout.marginRight = 5;
+		layout.marginLeft = 5;
+		container.setLayout(layout);
 
-		Label labelUsername = new Label(parent, SWT.NONE);
-		labelUsername.setText("Username");
-		textUsername = new Text(parent, SWT.BORDER);
+		Label lbUsername = new Label(container, SWT.NONE);
+		lbUsername.setText(MessageConstants.UserDetailsDialog_LBL_USERNAME);
 
-		Label labelPassword = new Label(parent, SWT.NONE);
-		labelPassword.setText("Password");
-		textPassword = new Text(parent, SWT.BORDER);
+		txtUsername = new Text(container, SWT.BORDER);
+		txtUsername.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
+		txtUsername.setText(username);
+		txtUsername.addModifyListener(e -> {
+			Text textWidget = (Text) e.getSource();
+			String usernameText = textWidget.getText();
+			username = usernameText;
+		});
 
-		Label labelFirstName = new Label(parent, SWT.NONE);
-		labelFirstName.setText("First Name");
-		textFirstName = new Text(parent, SWT.BORDER);
+		Label lblPassword = new Label(container, SWT.NONE);
+		GridData gridDataPasswordLabel = new GridData(SWT.LEFT, SWT.CENTER, false, false);
+		gridDataPasswordLabel.horizontalIndent = 1;
+		lblPassword.setLayoutData(gridDataPasswordLabel);
+		lblPassword.setText(MessageConstants.UserDetailsDialog_LBL_PASSWORD);
 
-		Label labelLastName = new Label(parent, SWT.NONE);
-		labelLastName.setText("Last Name");
-		textLastName.setText("Last Name");
+		txtPassword = new Text(container, SWT.BORDER | SWT.PASSWORD);
+		txtPassword.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
+		txtPassword.setText(password);
+		txtPassword.addModifyListener(e -> {
+			Text textWidget = (Text) e.getSource();
+			String passwordText = textWidget.getText();
+			password = passwordText;
+		});
 
-		Label labelGender = new Label(parent, SWT.NONE);
-		labelGender.setText("Gender");
-		GridData gd = new GridData(GridData.HORIZONTAL_ALIGN_END);
-		gd.horizontalSpan = 1;
-		combo1 = new Combo(parent, SWT.READ_ONLY);
-		combo1.add("Male");
-		combo1.add("Female");
-		return parent;
+		Label lblFirstName = new Label(container, SWT.NONE);
+		GridData gridDataFirstNameLabel = new GridData(SWT.LEFT, SWT.CENTER, false, false);
+		gridDataFirstNameLabel.horizontalIndent = 1;
+		lblFirstName.setLayoutData(gridDataFirstNameLabel);
+		lblFirstName.setText(MessageConstants.UserDetailsDialog_LBL_FIRST_NAME);
+
+		txtFirstName = new Text(container, SWT.BORDER);
+		txtFirstName.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
+		txtFirstName.setText(firstName);
+		txtFirstName.addModifyListener(e -> {
+			Text textWidget = (Text) e.getSource();
+			String firstNameText = textWidget.getText();
+			firstName = firstNameText;
+		});
+
+		Label lblLastName = new Label(container, SWT.NONE);
+		GridData gridDataLastNameLabel = new GridData(SWT.LEFT, SWT.CENTER, false, false);
+		gridDataLastNameLabel.horizontalIndent = 1;
+		lblLastName.setLayoutData(gridDataLastNameLabel);
+		lblLastName.setText(MessageConstants.UserDetailsDialog_LBL_LAST_NAME);
+
+		txtLastName = new Text(container, SWT.BORDER);
+		txtLastName.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
+		txtLastName.setText(lastName);
+		txtLastName.addModifyListener(e -> {
+			Text textWidget = (Text) e.getSource();
+			String lastNameText = textWidget.getText();
+			lastName = lastNameText;
+		});
+
+		Label lblDOB = new Label(container, SWT.NONE);
+		GridData gridDataDOBLabel = new GridData(SWT.LEFT, SWT.CENTER, false, false);
+		gridDataDOBLabel.horizontalIndent = 1;
+		lblDOB.setLayoutData(gridDataDOBLabel);
+		lblDOB.setText(MessageConstants.UserDetailsDialog_LBL_DATE_OF_BIRTH);
+
+		dtDOB = new DateTime(container, SWT.DROP_DOWN | SWT.BORDER | SWT.DATE | SWT.LONG);
+
+		Label lblGender = new Label(container, SWT.NONE);
+		GridData gridDataGenderLabel = new GridData(SWT.LEFT, SWT.CENTER, false, false);
+		gridDataGenderLabel.horizontalIndent = 1;
+		lblGender.setLayoutData(gridDataGenderLabel);
+		lblGender.setText(MessageConstants.UserDetailsDialog_LBL_GENDER);
+
+		Composite genderComposite = new Composite(container, SWT.NONE);
+		genderComposite.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1));
+		genderComposite.setLayout(new RowLayout());
+		rbtnMale = new Button(genderComposite, SWT.RADIO);
+		rbtnMale.setText(MessageConstants.UserDetailsDialog_RB_MALE);
+		rbtnFemale = new Button(genderComposite, SWT.RADIO);
+		rbtnFemale.setText(MessageConstants.UserDetailsDialog_RB_FEMALE);
+
+		Label lblAvatar = new Label(container, SWT.NONE);
+		GridData gridDataAvatarLabel = new GridData(SWT.LEFT, SWT.CENTER, false, false);
+		gridDataAvatarLabel.horizontalIndent = 1;
+		lblAvatar.setLayoutData(gridDataAvatarLabel);
+		lblAvatar.setText(MessageConstants.UserDetailsDialog_LBL_AVATAR);
+
+		Composite avatarComposite = new Composite(container, SWT.NONE);
+		avatarComposite.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1));
+		avatarComposite.setLayout(new GridLayout(2, false));
+
+		txtAvatarFilePath = new Text(avatarComposite, SWT.BORDER);
+		txtAvatarFilePath.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
+		txtAvatarFilePath.setText(avatarFilePath);
+		txtAvatarFilePath.addModifyListener(e -> {
+			Text textWidget = (Text) e.getSource();
+			String avatarFilePathText = textWidget.getText();
+			avatarFilePath = avatarFilePathText;
+		});
+
+		btnChooseFile = new Button(avatarComposite, SWT.PUSH);
+		btnChooseFile.setText(MessageConstants.UserDetailsDialog_BTN_CHOOSE_FILE);
+
+		return container;
 	}
 
 	@Override
-	protected void createButtonsForButtonBar(Composite parent) {
-		((GridLayout) parent.getLayout()).numColumns++;
+	protected void okPressed() {
+		username = txtUsername.getText();
+		password = txtPassword.getText();
+		super.okPressed();
+	}
 
-		Button button = new Button(parent, SWT.PUSH);
-		button.setText("Add");
-		button.setFont(JFaceResources.getDialogFont());
-		button.addSelectionListener(new SelectionAdapter() {
-			public void widgetSelected(SelectionEvent e) {
-				if (textUsername.getText().length() != 0 && textPassword.getText().length() != 0
-						&& textFirstName.getText().length() != 0 && textLastName.getText().length() != 0
-						&& combo1.getItem(combo1.getSelectionIndex()).length() != 0) {
-					user = new User(textUsername.getText(), textPassword.getText(), textFirstName.getText(),
-							textLastName.getText(), combo1.getItem(combo1.getSelectionIndex()));
-					close();
+	@Override
+	protected void configureShell(Shell newShell) {
+		super.configureShell(newShell);
+		newShell.setText(MessageConstants.UserDetailsDialog_DIA_TITLE);
+	}
 
-				} else {
-					setErrorMessage("Please enter all data");
-				}
-			}
-		});
+	@Override
+	protected Point getInitialSize() {
+		return new Point(400, 350);
 	}
 }
