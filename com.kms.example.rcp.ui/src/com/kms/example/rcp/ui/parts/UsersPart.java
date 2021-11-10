@@ -1,5 +1,8 @@
 package com.kms.example.rcp.ui.parts;
 
+import java.util.Iterator;
+import java.util.List;
+
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
@@ -7,6 +10,7 @@ import org.eclipse.e4.core.services.events.IEventBroker;
 import org.eclipse.e4.ui.di.Focus;
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.ColumnLabelProvider;
+import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
@@ -28,26 +32,25 @@ import com.kms.example.rcp.core.object.User;
 import com.kms.example.rcp.core.object.UserProvider;
 import com.kms.example.rcp.ui.constants.EventConstants;
 import com.kms.example.rcp.ui.constants.MessageConstants;
+import com.kms.example.rcp.ui.dialogs.UsersDetailDialog;
 
 public class UsersPart extends ViewPart {
 	public UsersPart() {
 	}
 
+	public static final String ID = "com.kms.example.rcp.ui.parts.UsersPart";
+
+	private TableViewer usersTableViewer;
 	private Button btnAdd;
 	private Button btnDelete;
 	private Button btnUpdate;
 
 	@Inject
 	private IEventBroker eventBroker;
-	private TableViewer usersTableViewer;
 
 	@PostConstruct
 	public void createPartControl(Composite parent) {
-		parent.setLayout(new GridLayout(1, true));
-
-//		Composite tableComposite = new Composite(parent, SWT.NONE);
-//		TableColumnLayout tableLayout = new TableColumnLayout();
-//		tableComposite.setLayout(tableLayout);
+		parent.setLayout(new GridLayout(1, false));
 
 		createUsersTableViewer(parent);
 
@@ -59,13 +62,12 @@ public class UsersPart extends ViewPart {
 		btnAdd.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				System.out.print("Add button pressed\n");
-//				UserProvider users = UserProvider.INSTANCE;
-//				UsersDetailDialog dialog = new UsersDetailDialog(getViewSite().getShell());
-//				dialog.open();
-//				if (dialog.getUser() != null) {
-//					users.getUsers().add(dialog.getUser());
-//				}
+				UserProvider users = UserProvider.INSTANCE;
+				UsersDetailDialog dialog = new UsersDetailDialog(parent.getShell());
+				dialog.open();
+				if (dialog.getUser() != null) {
+					users.getAllUsers().add(dialog.getUser());
+				}
 			}
 		});
 		btnAdd.setText(MessageConstants.UsersPart_BTN_ADD);
@@ -73,9 +75,20 @@ public class UsersPart extends ViewPart {
 		btnDelete = new Button(btnComposite, SWT.PUSH);
 		btnDelete.setEnabled(false);
 		btnDelete.addSelectionListener(new SelectionAdapter() {
+			@SuppressWarnings("unchecked")
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				System.out.print("Delete button pressed\n");
+				ISelection selection = getSite().getSelectionProvider().getSelection();
+				if (selection != null && selection instanceof IStructuredSelection) {
+					List<User> users = UserProvider.INSTANCE.getAllUsers();
+					IStructuredSelection sel = (IStructuredSelection) selection;
+					for (Iterator<User> iterator = sel.iterator(); iterator.hasNext();) {
+						User user = iterator.next();
+						users.remove(user);
+					}
+				}
+				refresh();
 			}
 		});
 		btnDelete.setText(MessageConstants.UsersPart_BTN_DELETE);
@@ -85,10 +98,17 @@ public class UsersPart extends ViewPart {
 		btnUpdate.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				System.out.print("Update button pressed\n");
+				UserProvider users = UserProvider.INSTANCE;
+				UsersDetailDialog dialog = new UsersDetailDialog(parent.getShell());
+				dialog.open();
+				if (dialog.getUser() != null) {
+					users.getAllUsers().add(dialog.getUser());
+				}
 			}
 		});
 		btnUpdate.setText(MessageConstants.UsersPart_BTN_UPDATE);
+
+		// getSite().setSelectionProvider(usersTableViewer);
 	}
 
 	private void createUsersTableViewer(Composite parent) {
@@ -101,8 +121,7 @@ public class UsersPart extends ViewPart {
 		usersTable.setLinesVisible(true);
 
 		usersTableViewer.setContentProvider(ArrayContentProvider.getInstance());
-		usersTableViewer.setInput(UserProvider.INSTANCE.getUsers());
-		// getSite().setSelectionProvider(usersTableViewer);
+		usersTableViewer.setInput(UserProvider.INSTANCE.getAllUsers());
 
 		GridData gridData = new GridData();
 		gridData.verticalAlignment = GridData.FILL;
@@ -179,12 +198,12 @@ public class UsersPart extends ViewPart {
 		return viewerColumn;
 	}
 
+	public void refresh() {
+		usersTableViewer.refresh();
+	}
+
 	@Focus
 	public void setFocus() {
 		usersTableViewer.getControl().setFocus();
-	}
-
-	public void refresh() {
-		usersTableViewer.refresh();
 	}
 }

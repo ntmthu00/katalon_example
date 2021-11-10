@@ -7,5 +7,7 @@ Bundle-Vendor: KMS
 Automatic-Module-Name: com.kms.example.rcp.core
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Require-Bundle: org.eclipse.equinox.registry;bundle-version="3.8.800",
- org.eclipse.osgi;bundle-version="3.15.300"
+ org.eclipse.osgi;bundle-version="3.15.300",
+ org.eclipse.core.commands,
+ org.eclipse.ui.workbench
 Export-Package: com.kms.example.rcp.core.object
