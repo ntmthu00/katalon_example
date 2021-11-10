@@ -10,13 +10,13 @@ public enum UserProvider {
 
 	private UserProvider() {
 		userList = new ArrayList<User>();
-		userList.add(new User("avatar/john.jpg", 1, "john_doe", Date.parseDate("29/08/1993"), "MALE", "John", "Doe",
+		userList.add(new User("avatar/john.jpg", 1, "john_doe", Date.parseDate("29/08/1993"), "Male", "John", "Doe",
 				"1234"));
-		userList.add(new User("avatar/katie.jpg", 2, "katie_holmes", Date.parseDate("10/10/1973"), "FEMALE", "Katie",
+		userList.add(new User("avatar/katie.jpg", 2, "katie_holmes", Date.parseDate("10/10/1973"), "Female", "Katie",
 				"Holmes", "1234"));
 	}
 
-	public List<User> getAllUsers() {
+	public List<User> getUserList() {
 		return userList;
 	}
 }

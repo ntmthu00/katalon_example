@@ -1,7 +1,10 @@
 package com.kms.example.rcp.ui.dialogs;
 
 import org.eclipse.jface.dialogs.Dialog;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -10,10 +13,12 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.DateTime;
+import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
+import com.kms.example.rcp.core.object.Date;
 import com.kms.example.rcp.core.object.User;
 import com.kms.example.rcp.ui.constants.MessageConstants;
 
@@ -32,14 +37,47 @@ public class UsersDetailDialog extends Dialog {
 	private User user;
 	private Button rbtnMale;
 	private Button rbtnFemale;
+	private String gender = "";
 	private Button btnChooseFile;
-	private Button btnAdd;
-	private Button btnCancel;
-	private Button btnUpdate;
 	private DateTime dtDOB;
+	private Date dateDOB;
+	private Button btnOK;
+	private Button btnCancel;
 
 	public User getUser() {
 		return user;
+	}
+
+	public void setTxtUsername(Text txtUsername) {
+		this.txtUsername = txtUsername;
+	}
+
+	public void setTxtPassword(Text txtPassword) {
+		this.txtPassword = txtPassword;
+	}
+
+	public void setTxtFirstName(Text txtFirstName) {
+		this.txtFirstName = txtFirstName;
+	}
+
+	public void setTxtLastName(Text txtLastName) {
+		this.txtLastName = txtLastName;
+	}
+
+	public void setTxtAvatarFilePath(Text txtAvatarFilePath) {
+		this.txtAvatarFilePath = txtAvatarFilePath;
+	}
+
+	public void setRbtnMale(Button rbtnMale) {
+		this.rbtnMale = rbtnMale;
+	}
+
+	public void setRbtnFemale(Button rbtnFemale) {
+		this.rbtnFemale = rbtnFemale;
+	}
+
+	public void setDtDOB(DateTime dtDOB) {
+		this.dtDOB = dtDOB;
 	}
 
 	public UsersDetailDialog(Shell parentShell) {
@@ -117,7 +155,7 @@ public class UsersDetailDialog extends Dialog {
 		lblDOB.setLayoutData(gridDataDOBLabel);
 		lblDOB.setText(MessageConstants.UserDetailsDialog_LBL_DATE_OF_BIRTH);
 
-		dtDOB = new DateTime(container, SWT.DROP_DOWN | SWT.BORDER | SWT.DATE | SWT.LONG);
+		dtDOB = new DateTime(container, SWT.CALENDAR | SWT.BORDER | SWT.DATE);
 
 		Label lblGender = new Label(container, SWT.NONE);
 		GridData gridDataGenderLabel = new GridData(SWT.LEFT, SWT.CENTER, false, false);
@@ -130,8 +168,24 @@ public class UsersDetailDialog extends Dialog {
 		genderComposite.setLayout(new RowLayout());
 		rbtnMale = new Button(genderComposite, SWT.RADIO);
 		rbtnMale.setText(MessageConstants.UserDetailsDialog_RB_MALE);
+		rbtnMale.addSelectionListener(new SelectionAdapter() {
+			public void widgetSelected(SelectionEvent e) {
+				Button source = (Button) e.getSource();
+				if (source.getSelection()) {
+					gender = source.getText();
+				}
+			}
+		});
 		rbtnFemale = new Button(genderComposite, SWT.RADIO);
 		rbtnFemale.setText(MessageConstants.UserDetailsDialog_RB_FEMALE);
+		rbtnFemale.addSelectionListener(new SelectionAdapter() {
+			public void widgetSelected(SelectionEvent e) {
+				Button source = (Button) e.getSource();
+				if (source.getSelection()) {
+					gender = source.getText();
+				}
+			}
+		});
 
 		Label lblAvatar = new Label(container, SWT.NONE);
 		GridData gridDataAvatarLabel = new GridData(SWT.LEFT, SWT.CENTER, false, false);
@@ -154,15 +208,52 @@ public class UsersDetailDialog extends Dialog {
 
 		btnChooseFile = new Button(avatarComposite, SWT.PUSH);
 		btnChooseFile.setText(MessageConstants.UserDetailsDialog_BTN_CHOOSE_FILE);
-
+		btnChooseFile.addSelectionListener(new SelectionAdapter() {
+			public void widgetSelected(SelectionEvent e) {
+				FileDialog fileDlg = new FileDialog(btnChooseFile.getShell(), SWT.OPEN);
+				fileDlg.setText("Open");
+				avatarFilePath = fileDlg.open();
+				if (avatarFilePath == null)
+					return;
+				txtAvatarFilePath.setText(avatarFilePath);
+			}
+		});
 		return container;
 	}
 
 	@Override
-	protected void okPressed() {
-		username = txtUsername.getText();
-		password = txtPassword.getText();
-		super.okPressed();
+	protected void createButtonsForButtonBar(Composite parent) {
+		((GridLayout) parent.getLayout()).numColumns++;
+
+		Composite btnComposite = new Composite(parent, SWT.NONE);
+		btnComposite.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
+		btnComposite.setLayout(new RowLayout());
+
+		btnOK = new Button(btnComposite, SWT.PUSH);
+		btnOK.setText(MessageConstants.UserDetailsDialog_BTN_OK);
+		btnOK.addSelectionListener(new SelectionAdapter() {
+			public void widgetSelected(SelectionEvent e) {
+				if (txtUsername.getText().length() != 0 && txtPassword.getText().length() != 0
+						&& txtFirstName.getText().length() != 0 && txtLastName.getText().length() != 0
+						&& txtAvatarFilePath.getText().length() != 0 && gender.length() != 0) {
+					dateDOB = new Date(dtDOB.getDay(), dtDOB.getMonth(), dtDOB.getYear());
+					user = new User(txtAvatarFilePath.getText(), txtUsername.getText(), dateDOB, gender,
+							txtFirstName.getText(), txtLastName.getText(), txtPassword.getText());
+					close();
+				} else {
+					MessageDialog.openError(getShell(), MessageConstants.UserDetailsDialog_ERROR_TITLE,
+							MessageConstants.UserDetailsDialog_MISSING_DATA);
+				}
+			}
+		});
+
+		btnCancel = new Button(btnComposite, SWT.PUSH);
+		btnCancel.setText(MessageConstants.UserDetailsDialog_BTN_CANCEL);
+		btnCancel.addSelectionListener(new SelectionAdapter() {
+			public void widgetSelected(SelectionEvent e) {
+				close();
+			}
+		});
 	}
 
 	@Override

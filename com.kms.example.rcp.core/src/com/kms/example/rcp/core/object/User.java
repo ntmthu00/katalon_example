@@ -17,11 +17,10 @@ public class User {
 	public User() {
 	}
 
-	public User(String avaFilePath, int id, String username, Date dob, String gender, String firstName, String lastName,
+	public User(String avaFilePath, String username, Date dob, String gender, String firstName, String lastName,
 			String password) {
 		super();
 		this.avaFilePath = avaFilePath;
-		this.id = id;
 		this.username = username;
 		this.dob = dob;
 		this.gender = gender;
@@ -30,9 +29,13 @@ public class User {
 		this.password = password;
 	}
 
-	public User(String username, String gender, String firstName, String lastName, String password) {
+	public User(String avaFilePath, int id, String username, Date dob, String gender, String firstName, String lastName,
+			String password) {
 		super();
+		this.avaFilePath = avaFilePath;
+		this.id = id;
 		this.username = username;
+		this.dob = dob;
 		this.gender = gender;
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -60,7 +63,7 @@ public class User {
 	}
 
 	public void setId(int id) {
-		propertyChangeSupport.firePropertyChange("ID", this.id, this.id = id);
+		propertyChangeSupport.firePropertyChange("id", this.id, this.id = id);
 	}
 
 	public String getUsername() {
@@ -68,7 +71,7 @@ public class User {
 	}
 
 	public void setUsername(String username) {
-		propertyChangeSupport.firePropertyChange("Username", this.username, this.username = username);
+		propertyChangeSupport.firePropertyChange("username", this.username, this.username = username);
 	}
 
 	public Date getDob() {
@@ -76,7 +79,7 @@ public class User {
 	}
 
 	public void setDob(Date dob) {
-		propertyChangeSupport.firePropertyChange("DoB", this.dob, this.dob = dob);
+		propertyChangeSupport.firePropertyChange("dob", this.dob, this.dob = dob);
 	}
 
 	public String getGender() {
@@ -84,7 +87,7 @@ public class User {
 	}
 
 	public void setGender(String gender) {
-		propertyChangeSupport.firePropertyChange("Gender", this.gender, this.gender = gender);
+		propertyChangeSupport.firePropertyChange("gender", this.gender, this.gender = gender);
 	}
 
 	public String getFirstName() {
@@ -92,7 +95,7 @@ public class User {
 	}
 
 	public void setFirstName(String firstName) {
-		this.firstName = firstName;
+		propertyChangeSupport.firePropertyChange("firstName", this.firstName, this.firstName = firstName);
 	}
 
 	public String getLastName() {
@@ -100,7 +103,7 @@ public class User {
 	}
 
 	public void setLastName(String lastName) {
-		this.lastName = lastName;
+		propertyChangeSupport.firePropertyChange("lastName", this.lastName, this.lastName = lastName);
 	}
 
 	public String getPassword() {
@@ -108,6 +111,6 @@ public class User {
 	}
 
 	public void setPassword(String password) {
-		this.password = password;
+		propertyChangeSupport.firePropertyChange("password", this.password, this.password = password);
 	}
 }

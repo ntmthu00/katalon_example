@@ -1,5 +1,7 @@
 package com.kms.example.rcp.ui.parts;
 
+import java.io.File;
+import java.net.MalformedURLException;
 import java.net.URL;
 
 import javax.annotation.PostConstruct;
@@ -38,10 +40,20 @@ public class AvatarPart {
 			public void handleEvent(final Event e) {
 				if (parent.getDisplay().getThread() == Thread.currentThread()) {
 					String avatarFilePath = (String) e.getProperty(IEventBroker.DATA);
-					Bundle bundle = Platform.getBundle("com.kms.example.rcp.core");
-					URL url = FileLocator.find(bundle, new Path(avatarFilePath), null);
-					ImageDescriptor imageDesc = ImageDescriptor.createFromURL(url);
-					avatarImage = imageDesc.createImage();
+					if (avatarFilePath.substring(0, 7).equals("avatar/")) {
+						Bundle bundle = Platform.getBundle("com.kms.example.rcp.core");
+						URL url = FileLocator.find(bundle, new Path(avatarFilePath), null);
+						ImageDescriptor imageDesc = ImageDescriptor.createFromURL(url);
+						avatarImage = imageDesc.createImage();
+					} else {
+						try {
+							URL url = new File(avatarFilePath).toURI().toURL();
+							ImageDescriptor imageDesc = ImageDescriptor.createFromURL(url);
+							avatarImage = imageDesc.createImage();
+						} catch (MalformedURLException e1) {
+							e1.printStackTrace();
+						}
+					}
 
 					canvas.addPaintListener(new PaintListener() {
 						public void paintControl(PaintEvent e) {

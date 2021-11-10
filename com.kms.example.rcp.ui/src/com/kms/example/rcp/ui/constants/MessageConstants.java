@@ -4,7 +4,7 @@ public class MessageConstants {
 	private MessageConstants() {
 	}
 
-	public static final String UserDetailsDialog_BTN_ADD = "Add";
+	public static final String UserDetailsDialog_BTN_OK = "OK";
 	public static final String UserDetailsDialog_BTN_CANCEL = "Cancel";
 	public static final String UserDetailsDialog_BTN_CHOOSE_FILE = "Choose file...";
 	public static final String UserDetailsDialog_BTN_UPDATE = "Update";
@@ -19,10 +19,11 @@ public class MessageConstants {
 	public static final String UserDetailsDialog_LBL_USERNAME = "Username";
 	public static final String UserDetailsDialog_RB_FEMALE = "Female";
 	public static final String UserDetailsDialog_RB_MALE = "Male";
+	public static final String UserDetailsDialog_ERROR_TITLE = "Error";
+	public static final String UserDetailsDialog_MISSING_DATA = "Missing required data fields!";
 	public static final String UsersPart_BTN_ADD = "Add";
 	public static final String UsersPart_BTN_DELETE = "Delete";
 	public static final String UsersPart_BTN_UPDATE = "Update";
-	public static final String UsersPart_ERROR_TITLE = "Error";
 	public static final String UsersPart_MSG_USER_NOT_FOUND = "User not found!";
 	public static final String UsersPart_TBL_COL_DATE_OF_BIRTH = "Date of Birth";
 	public static final String UsersPart_TBL_COL_GENDER = "Gender";

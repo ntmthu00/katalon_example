@@ -53,7 +53,12 @@ public class UsersPart extends ViewPart {
 		parent.setLayout(new GridLayout(1, false));
 
 		createUsersTableViewer(parent);
+		createButtonSection(parent);
 
+		// getSite().setSelectionProvider(usersTableViewer);
+	}
+
+	private void createButtonSection(Composite parent) {
 		Composite btnComposite = new Composite(parent, SWT.NONE);
 		btnComposite.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
 		btnComposite.setLayout(new RowLayout());
@@ -66,7 +71,10 @@ public class UsersPart extends ViewPart {
 				UsersDetailDialog dialog = new UsersDetailDialog(parent.getShell());
 				dialog.open();
 				if (dialog.getUser() != null) {
-					users.getAllUsers().add(dialog.getUser());
+					User newUser = dialog.getUser();
+					newUser.setId(users.getUserList().size() + 1);
+					users.getUserList().add(newUser);
+					refresh();
 				}
 			}
 		});
@@ -81,11 +89,12 @@ public class UsersPart extends ViewPart {
 				System.out.print("Delete button pressed\n");
 				ISelection selection = getSite().getSelectionProvider().getSelection();
 				if (selection != null && selection instanceof IStructuredSelection) {
-					List<User> users = UserProvider.INSTANCE.getAllUsers();
+					List<User> users = UserProvider.INSTANCE.getUserList();
 					IStructuredSelection sel = (IStructuredSelection) selection;
 					for (Iterator<User> iterator = sel.iterator(); iterator.hasNext();) {
 						User user = iterator.next();
 						users.remove(user);
+						refresh();
 					}
 				}
 				refresh();
@@ -101,14 +110,15 @@ public class UsersPart extends ViewPart {
 				UserProvider users = UserProvider.INSTANCE;
 				UsersDetailDialog dialog = new UsersDetailDialog(parent.getShell());
 				dialog.open();
-				if (dialog.getUser() != null) {
-					users.getAllUsers().add(dialog.getUser());
-				}
+//				if (dialog.getUser() != null) {
+//					User newUser = dialog.getUser();
+//					newUser.setId(users.getUserList().size() + 1);
+//					users.getUserList().add(newUser);
+//					refresh();
+//				}
 			}
 		});
 		btnUpdate.setText(MessageConstants.UsersPart_BTN_UPDATE);
-
-		// getSite().setSelectionProvider(usersTableViewer);
 	}
 
 	private void createUsersTableViewer(Composite parent) {
@@ -121,7 +131,7 @@ public class UsersPart extends ViewPart {
 		usersTable.setLinesVisible(true);
 
 		usersTableViewer.setContentProvider(ArrayContentProvider.getInstance());
-		usersTableViewer.setInput(UserProvider.INSTANCE.getAllUsers());
+		usersTableViewer.setInput(UserProvider.INSTANCE.getUserList());
 
 		GridData gridData = new GridData();
 		gridData.verticalAlignment = GridData.FILL;
