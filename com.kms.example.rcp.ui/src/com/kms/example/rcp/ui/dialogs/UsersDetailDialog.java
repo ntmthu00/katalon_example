@@ -23,7 +23,6 @@ import com.kms.example.rcp.core.object.User;
 import com.kms.example.rcp.ui.constants.MessageConstants;
 
 public class UsersDetailDialog extends Dialog {
-
 	private Text txtUsername;
 	private String username = "";
 	private Text txtPassword;
@@ -48,36 +47,32 @@ public class UsersDetailDialog extends Dialog {
 		return user;
 	}
 
-	public void setTxtUsername(Text txtUsername) {
-		this.txtUsername = txtUsername;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
-	public void setTxtPassword(Text txtPassword) {
-		this.txtPassword = txtPassword;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
-	public void setTxtFirstName(Text txtFirstName) {
-		this.txtFirstName = txtFirstName;
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
 
-	public void setTxtLastName(Text txtLastName) {
-		this.txtLastName = txtLastName;
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 
-	public void setTxtAvatarFilePath(Text txtAvatarFilePath) {
-		this.txtAvatarFilePath = txtAvatarFilePath;
+	public void setAvatarFilePath(String avatarFilePath) {
+		this.avatarFilePath = avatarFilePath;
 	}
 
-	public void setRbtnMale(Button rbtnMale) {
-		this.rbtnMale = rbtnMale;
+	public void setGender(String gender) {
+		this.gender = gender;
 	}
 
-	public void setRbtnFemale(Button rbtnFemale) {
-		this.rbtnFemale = rbtnFemale;
-	}
-
-	public void setDtDOB(DateTime dtDOB) {
-		this.dtDOB = dtDOB;
+	public void setDateDOB(Date dateDOB) {
+		this.dateDOB = dateDOB;
 	}
 
 	public UsersDetailDialog(Shell parentShell) {
@@ -104,11 +99,11 @@ public class UsersDetailDialog extends Dialog {
 			username = usernameText;
 		});
 
-		Label lblPassword = new Label(container, SWT.NONE);
+		Label lbPassword = new Label(container, SWT.NONE);
 		GridData gridDataPasswordLabel = new GridData(SWT.LEFT, SWT.CENTER, false, false);
 		gridDataPasswordLabel.horizontalIndent = 1;
-		lblPassword.setLayoutData(gridDataPasswordLabel);
-		lblPassword.setText(MessageConstants.UserDetailsDialog_LBL_PASSWORD);
+		lbPassword.setLayoutData(gridDataPasswordLabel);
+		lbPassword.setText(MessageConstants.UserDetailsDialog_LBL_PASSWORD);
 
 		txtPassword = new Text(container, SWT.BORDER | SWT.PASSWORD);
 		txtPassword.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
@@ -119,11 +114,11 @@ public class UsersDetailDialog extends Dialog {
 			password = passwordText;
 		});
 
-		Label lblFirstName = new Label(container, SWT.NONE);
+		Label lbFirstName = new Label(container, SWT.NONE);
 		GridData gridDataFirstNameLabel = new GridData(SWT.LEFT, SWT.CENTER, false, false);
 		gridDataFirstNameLabel.horizontalIndent = 1;
-		lblFirstName.setLayoutData(gridDataFirstNameLabel);
-		lblFirstName.setText(MessageConstants.UserDetailsDialog_LBL_FIRST_NAME);
+		lbFirstName.setLayoutData(gridDataFirstNameLabel);
+		lbFirstName.setText(MessageConstants.UserDetailsDialog_LBL_FIRST_NAME);
 
 		txtFirstName = new Text(container, SWT.BORDER);
 		txtFirstName.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
@@ -134,11 +129,11 @@ public class UsersDetailDialog extends Dialog {
 			firstName = firstNameText;
 		});
 
-		Label lblLastName = new Label(container, SWT.NONE);
+		Label lbLastName = new Label(container, SWT.NONE);
 		GridData gridDataLastNameLabel = new GridData(SWT.LEFT, SWT.CENTER, false, false);
 		gridDataLastNameLabel.horizontalIndent = 1;
-		lblLastName.setLayoutData(gridDataLastNameLabel);
-		lblLastName.setText(MessageConstants.UserDetailsDialog_LBL_LAST_NAME);
+		lbLastName.setLayoutData(gridDataLastNameLabel);
+		lbLastName.setText(MessageConstants.UserDetailsDialog_LBL_LAST_NAME);
 
 		txtLastName = new Text(container, SWT.BORDER);
 		txtLastName.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
@@ -149,19 +144,19 @@ public class UsersDetailDialog extends Dialog {
 			lastName = lastNameText;
 		});
 
-		Label lblDOB = new Label(container, SWT.NONE);
+		Label lbDOB = new Label(container, SWT.NONE);
 		GridData gridDataDOBLabel = new GridData(SWT.LEFT, SWT.CENTER, false, false);
 		gridDataDOBLabel.horizontalIndent = 1;
-		lblDOB.setLayoutData(gridDataDOBLabel);
-		lblDOB.setText(MessageConstants.UserDetailsDialog_LBL_DATE_OF_BIRTH);
+		lbDOB.setLayoutData(gridDataDOBLabel);
+		lbDOB.setText(MessageConstants.UserDetailsDialog_LBL_DATE_OF_BIRTH);
 
 		dtDOB = new DateTime(container, SWT.CALENDAR | SWT.BORDER | SWT.DATE);
 
-		Label lblGender = new Label(container, SWT.NONE);
+		Label lbGender = new Label(container, SWT.NONE);
 		GridData gridDataGenderLabel = new GridData(SWT.LEFT, SWT.CENTER, false, false);
 		gridDataGenderLabel.horizontalIndent = 1;
-		lblGender.setLayoutData(gridDataGenderLabel);
-		lblGender.setText(MessageConstants.UserDetailsDialog_LBL_GENDER);
+		lbGender.setLayoutData(gridDataGenderLabel);
+		lbGender.setText(MessageConstants.UserDetailsDialog_LBL_GENDER);
 
 		Composite genderComposite = new Composite(container, SWT.NONE);
 		genderComposite.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1));
@@ -186,12 +181,17 @@ public class UsersDetailDialog extends Dialog {
 				}
 			}
 		});
+		if (gender.equals(MessageConstants.UserDetailsDialog_RB_MALE)) {
+			rbtnMale.setSelection(true);
+		} else if (gender.equals(MessageConstants.UserDetailsDialog_RB_FEMALE)) {
+			rbtnFemale.setSelection(true);
+		}
 
-		Label lblAvatar = new Label(container, SWT.NONE);
+		Label lbAvatar = new Label(container, SWT.NONE);
 		GridData gridDataAvatarLabel = new GridData(SWT.LEFT, SWT.CENTER, false, false);
 		gridDataAvatarLabel.horizontalIndent = 1;
-		lblAvatar.setLayoutData(gridDataAvatarLabel);
-		lblAvatar.setText(MessageConstants.UserDetailsDialog_LBL_AVATAR);
+		lbAvatar.setLayoutData(gridDataAvatarLabel);
+		lbAvatar.setText(MessageConstants.UserDetailsDialog_LBL_AVATAR);
 
 		Composite avatarComposite = new Composite(container, SWT.NONE);
 		avatarComposite.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1));
@@ -211,7 +211,7 @@ public class UsersDetailDialog extends Dialog {
 		btnChooseFile.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
 				FileDialog fileDlg = new FileDialog(btnChooseFile.getShell(), SWT.OPEN);
-				fileDlg.setText("Open");
+				fileDlg.setText(MessageConstants.UserDetailsDialog_FILE_DLG_TITLE);
 				avatarFilePath = fileDlg.open();
 				if (avatarFilePath == null)
 					return;

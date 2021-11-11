@@ -107,15 +107,26 @@ public class UsersPart extends ViewPart {
 		btnUpdate.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
+				IStructuredSelection selection = usersTableViewer.getStructuredSelection();
+				User user = User.class.cast(selection.getFirstElement());
 				UserProvider users = UserProvider.INSTANCE;
 				UsersDetailDialog dialog = new UsersDetailDialog(parent.getShell());
+				dialog.setUsername(user.getUsername());
+				dialog.setPassword(user.getPassword());
+				dialog.setFirstName(user.getFirstName());
+				dialog.setLastName(user.getLastName());
+				dialog.setAvatarFilePath(user.getAvaFilePath());
+				dialog.setDateDOB(user.getDob());
+				dialog.setGender(user.getGender());
 				dialog.open();
-//				if (dialog.getUser() != null) {
-//					User newUser = dialog.getUser();
-//					newUser.setId(users.getUserList().size() + 1);
-//					users.getUserList().add(newUser);
-//					refresh();
-//				}
+
+				if (dialog.getUser() != null) {
+					User updatedUser = dialog.getUser();
+					updatedUser.setId(user.getId());
+					int userIdx = users.getUserList().indexOf(user);
+					users.getUserList().set(userIdx, updatedUser);
+					refresh();
+				}
 			}
 		});
 		btnUpdate.setText(MessageConstants.UsersPart_BTN_UPDATE);

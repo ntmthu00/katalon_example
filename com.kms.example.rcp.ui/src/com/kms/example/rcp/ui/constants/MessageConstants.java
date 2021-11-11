@@ -7,6 +7,7 @@ public class MessageConstants {
 	public static final String UserDetailsDialog_BTN_OK = "OK";
 	public static final String UserDetailsDialog_BTN_CANCEL = "Cancel";
 	public static final String UserDetailsDialog_BTN_CHOOSE_FILE = "Choose file...";
+	public static final String UserDetailsDialog_FILE_DLG_TITLE = "Choose your avatar";
 	public static final String UserDetailsDialog_BTN_UPDATE = "Update";
 	public static final String UserDetailsDialog_DIA_TITLE = "User Details";
 	public static final String UserDetailsDialog_LBL_AVATAR = "Avatar";
