@@ -157,8 +157,10 @@ public class UsersPart extends ViewPart {
 				btnUpdate.setEnabled(true);
 				btnDelete.setEnabled(true);
 				User user = User.class.cast(selection.getFirstElement());
-				eventBroker.send(EventConstants.TOPIC_ROW_SELECTION_AVATAR, user.getAvaFilePath());
-				eventBroker.send(EventConstants.TOPIC_ROW_SELECTION_WELCOME, user.getUsername());
+				if (user != null) {
+					eventBroker.send(EventConstants.TOPIC_ROW_SELECTION_AVATAR, user.getAvaFilePath());
+					eventBroker.send(EventConstants.TOPIC_ROW_SELECTION_WELCOME, user.getUsername());
+				}
 			}
 		});
 	}

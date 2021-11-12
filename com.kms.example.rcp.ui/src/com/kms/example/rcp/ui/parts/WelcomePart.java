@@ -47,5 +47,4 @@ public class WelcomePart {
 		};
 		eventBroker.subscribe(EventConstants.TOPIC_ROW_SELECTION_WELCOME, handler);
 	}
-
 }

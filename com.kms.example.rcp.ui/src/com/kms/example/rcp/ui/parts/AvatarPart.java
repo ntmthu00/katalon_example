@@ -11,21 +11,25 @@ import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.e4.core.services.events.IEventBroker;
+import org.eclipse.e4.ui.di.Focus;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.FocusEvent;
+import org.eclipse.swt.events.FocusListener;
 import org.eclipse.swt.events.PaintEvent;
 import org.eclipse.swt.events.PaintListener;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.ui.part.ViewPart;
 import org.osgi.framework.Bundle;
 import org.osgi.service.event.Event;
 import org.osgi.service.event.EventHandler;
 
 import com.kms.example.rcp.ui.constants.EventConstants;
 
-public class AvatarPart {
+public class AvatarPart extends ViewPart {
 	private Image avatarImage;
 	private Canvas canvas;
 
@@ -33,9 +37,26 @@ public class AvatarPart {
 	private IEventBroker eventBroker;
 
 	@PostConstruct
-	public void createControls(Composite parent) {
+	public void createPartControl(Composite parent) {
 		canvas = new Canvas(parent, SWT.BORDER);
 		subscribeRowSelectionEvent(parent);
+		canvas.addFocusListener(new FocusListener() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				canvas.addPaintListener(new PaintListener() {
+					public void paintControl(PaintEvent e) {
+						e.gc.drawImage(avatarImage, 0, 0);
+					}
+				});
+				canvas.redraw();
+			}
+
+			@Override
+			public void focusLost(FocusEvent e) {
+
+			}
+
+		});
 	}
 
 	private void subscribeRowSelectionEvent(Composite parent) {
@@ -71,5 +92,10 @@ public class AvatarPart {
 			}
 		};
 		eventBroker.subscribe(EventConstants.TOPIC_ROW_SELECTION_AVATAR, handler);
+	}
+
+	@Focus
+	public void setFocus() {
+		canvas.setFocus();
 	}
 }
