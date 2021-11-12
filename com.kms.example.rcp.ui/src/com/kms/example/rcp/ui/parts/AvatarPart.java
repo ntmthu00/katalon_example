@@ -35,7 +35,10 @@ public class AvatarPart {
 	@PostConstruct
 	public void createControls(Composite parent) {
 		canvas = new Canvas(parent, SWT.BORDER);
+		subscribeRowSelectionEvent(parent);
+	}
 
+	private void subscribeRowSelectionEvent(Composite parent) {
 		EventHandler handler = new EventHandler() {
 			public void handleEvent(final Event e) {
 				if (parent.getDisplay().getThread() == Thread.currentThread()) {
@@ -67,7 +70,6 @@ public class AvatarPart {
 				}
 			}
 		};
-
 		eventBroker.subscribe(EventConstants.TOPIC_ROW_SELECTION_AVATAR, handler);
 	}
 }

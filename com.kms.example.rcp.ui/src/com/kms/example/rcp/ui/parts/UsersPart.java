@@ -1,16 +1,15 @@
 package com.kms.example.rcp.ui.parts;
 
-import java.util.Iterator;
-import java.util.List;
-
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
 import org.eclipse.e4.core.services.events.IEventBroker;
 import org.eclipse.e4.ui.di.Focus;
+import org.eclipse.jface.layout.GridDataFactory;
+import org.eclipse.jface.layout.TableColumnLayout;
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.ColumnLabelProvider;
-import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.jface.viewers.ColumnWeightData;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
@@ -54,8 +53,6 @@ public class UsersPart extends ViewPart {
 
 		createUsersTableViewer(parent);
 		createButtonSection(parent);
-
-		// getSite().setSelectionProvider(usersTableViewer);
 	}
 
 	private void createButtonSection(Composite parent) {
@@ -83,21 +80,15 @@ public class UsersPart extends ViewPart {
 		btnDelete = new Button(btnComposite, SWT.PUSH);
 		btnDelete.setEnabled(false);
 		btnDelete.addSelectionListener(new SelectionAdapter() {
-			@SuppressWarnings("unchecked")
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				System.out.print("Delete button pressed\n");
-				ISelection selection = getSite().getSelectionProvider().getSelection();
-				if (selection != null && selection instanceof IStructuredSelection) {
-					List<User> users = UserProvider.INSTANCE.getUserList();
-					IStructuredSelection sel = (IStructuredSelection) selection;
-					for (Iterator<User> iterator = sel.iterator(); iterator.hasNext();) {
-						User user = iterator.next();
-						users.remove(user);
-						refresh();
-					}
-				}
+				IStructuredSelection selection = usersTableViewer.getStructuredSelection();
+				User user = User.class.cast(selection.getFirstElement());
+				UserProvider users = UserProvider.INSTANCE;
+				users.getUserList().remove(user);
 				refresh();
+				btnDelete.setEnabled(false);
+				btnUpdate.setEnabled(false);
 			}
 		});
 		btnDelete.setText(MessageConstants.UsersPart_BTN_DELETE);
@@ -126,6 +117,8 @@ public class UsersPart extends ViewPart {
 					int userIdx = users.getUserList().indexOf(user);
 					users.getUserList().set(userIdx, updatedUser);
 					refresh();
+					btnDelete.setEnabled(false);
+					btnUpdate.setEnabled(false);
 				}
 			}
 		});
@@ -133,10 +126,15 @@ public class UsersPart extends ViewPart {
 	}
 
 	private void createUsersTableViewer(Composite parent) {
-		usersTableViewer = new TableViewer(parent,
+		Composite tableComposite = new Composite(parent, SWT.NONE);
+		final TableColumnLayout tableColumnLayout = new TableColumnLayout();
+		tableComposite.setLayout(tableColumnLayout);
+		GridDataFactory.fillDefaults().grab(true, true).applyTo(tableComposite);
+
+		usersTableViewer = new TableViewer(tableComposite,
 				SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL | SWT.HIDE_SELECTION | SWT.BORDER);
 
-		createColumns(parent, usersTableViewer);
+		createColumns(tableColumnLayout);
 		final Table usersTable = usersTableViewer.getTable();
 		usersTable.setHeaderVisible(true);
 		usersTable.setLinesVisible(true);
@@ -165,12 +163,12 @@ public class UsersPart extends ViewPart {
 		});
 	}
 
-	private void createColumns(final Composite parent, final TableViewer usersTableViewer) {
+	private void createColumns(final TableColumnLayout tableColumnLayout) {
 		String[] titles = { MessageConstants.UsersPart_TBL_COL_ID, MessageConstants.UsersPart_TBL_COL_USERNAME,
 				MessageConstants.UsersPart_TBL_COL_DATE_OF_BIRTH, MessageConstants.UsersPart_TBL_COL_GENDER };
-		int[] bounds = { 100, 100, 100, 100 };
 
-		TableViewerColumn col = createTableViewerColumn(titles[0], bounds[0], 0);
+		TableViewerColumn col = createTableViewerColumn(titles[0]);
+		tableColumnLayout.setColumnData(col.getColumn(), new ColumnWeightData(100));
 		col.setLabelProvider(new ColumnLabelProvider() {
 			@Override
 			public String getText(Object element) {
@@ -179,7 +177,8 @@ public class UsersPart extends ViewPart {
 			}
 		});
 
-		col = createTableViewerColumn(titles[1], bounds[1], 1);
+		col = createTableViewerColumn(titles[1]);
+		tableColumnLayout.setColumnData(col.getColumn(), new ColumnWeightData(100));
 		col.setLabelProvider(new ColumnLabelProvider() {
 			@Override
 			public String getText(Object element) {
@@ -188,7 +187,8 @@ public class UsersPart extends ViewPart {
 			}
 		});
 
-		col = createTableViewerColumn(titles[2], bounds[2], 2);
+		col = createTableViewerColumn(titles[2]);
+		tableColumnLayout.setColumnData(col.getColumn(), new ColumnWeightData(100));
 		col.setLabelProvider(new ColumnLabelProvider() {
 			@Override
 			public String getText(Object element) {
@@ -197,7 +197,8 @@ public class UsersPart extends ViewPart {
 			}
 		});
 
-		col = createTableViewerColumn(titles[3], bounds[3], 3);
+		col = createTableViewerColumn(titles[3]);
+		tableColumnLayout.setColumnData(col.getColumn(), new ColumnWeightData(100));
 		col.setLabelProvider(new ColumnLabelProvider() {
 			@Override
 			public String getText(Object element) {
@@ -207,12 +208,11 @@ public class UsersPart extends ViewPart {
 		});
 	}
 
-	private TableViewerColumn createTableViewerColumn(String title, int bound, final int colNumber) {
+	private TableViewerColumn createTableViewerColumn(String title) {
 		final TableViewerColumn viewerColumn = new TableViewerColumn(usersTableViewer, SWT.NONE);
 		final TableColumn column = viewerColumn.getColumn();
 
 		column.setText(title);
-		column.setWidth(bound);
 		column.setResizable(true);
 		column.setMoveable(true);
 

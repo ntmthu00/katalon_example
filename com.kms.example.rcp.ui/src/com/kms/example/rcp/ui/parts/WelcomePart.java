@@ -26,7 +26,10 @@ public class WelcomePart {
 	@PostConstruct
 	public void createControls(Composite parent) {
 		canvas = new Canvas(parent, SWT.BORDER);
+		subscribeRowSelectionEvent(parent);
+	}
 
+	private void subscribeRowSelectionEvent(Composite parent) {
 		EventHandler handler = new EventHandler() {
 			public void handleEvent(final Event e) {
 				if (parent.getDisplay().getThread() == Thread.currentThread()) {
@@ -44,4 +47,5 @@ public class WelcomePart {
 		};
 		eventBroker.subscribe(EventConstants.TOPIC_ROW_SELECTION_WELCOME, handler);
 	}
+
 }
