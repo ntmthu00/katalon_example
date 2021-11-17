@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<?artifactRepository version='1.1.0'?>
+<artifacts size='1'>
+  <artifact classifier='osgi.bundle' id='com.kms.example.rcp.ui' version='1.0.0.202111170817'>
+    <properties size='5'>
+      <property name='artifact.size' value='34814'/>
+      <property name='download.size' value='34814'/>
+      <property name='maven-groupId' value='com.kms.example.rcp.tycho'/>
+      <property name='maven-artifactId' value='com.kms.example.rcp.ui'/>
+      <property name='maven-version' value='1.0.0-SNAPSHOT'/>
+    </properties>
+  </artifact>
+</artifacts>

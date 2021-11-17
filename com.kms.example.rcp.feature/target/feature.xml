@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="com.kms.example.rcp.feature"
+      label="Feature"
+      version="1.0.0.202111170817"
+      provider-name="KMS">
+
+   <description url="http://www.example.com/description">
+      [Enter Feature Description here.]
+   </description>
+
+   <copyright url="http://www.example.com/copyright">
+      [Enter Copyright Description here.]
+   </copyright>
+
+   <license url="http://www.example.com/license">
+      [Enter License Description here.]
+   </license>
+
+   <plugin
+         id="com.kms.example.rcp.ui"
+         download-size="33"
+         install-size="64"
+         version="1.0.0.202111170817"
+         unpack="false"/>
+
+   <plugin
+         id="com.kms.example.rcp.ui.contribute"
+         download-size="8"
+         install-size="9"
+         version="1.0.0.202111170817"
+         unpack="false"/>
+
+   <plugin
+         id="com.kms.example.rcp.core"
+         download-size="215"
+         install-size="219"
+         version="1.0.0.202111170817"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.ui"
+         download-size="432"
+         install-size="544"
+         version="3.119.100.v20210830-0942"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.ui.workbench"
+         download-size="3554"
+         install-size="7446"
+         version="3.123.0.v20210817-0704"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.help"
+         download-size="270"
+         install-size="683"
+         version="3.9.100.v20210721-0601"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.equinox.event"
+         download-size="32"
+         install-size="58"
+         version="1.6.0.v20210212-1143"
+         unpack="false"/>
+
+</feature>

@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<units size='1'>
+  <unit id='com.kms.example.rcp.ui.contribute' version='1.0.0.202111170817' generation='2'>
+    <update id='com.kms.example.rcp.ui.contribute' range='[0.0.0,1.0.0.202111170817)' severity='0'/>
+    <properties size='5'>
+      <property name='org.eclipse.equinox.p2.name' value='Contribute'/>
+      <property name='org.eclipse.equinox.p2.provider' value='KMS'/>
+      <property name='maven-groupId' value='com.kms.example.rcp.tycho'/>
+      <property name='maven-artifactId' value='com.kms.example.rcp.ui.contribute'/>
+      <property name='maven-version' value='1.0.0-SNAPSHOT'/>
+    </properties>
+    <provides size='4'>
+      <provided namespace='org.eclipse.equinox.p2.iu' name='com.kms.example.rcp.ui.contribute' version='1.0.0.202111170817'/>
+      <provided namespace='osgi.bundle' name='com.kms.example.rcp.ui.contribute' version='1.0.0.202111170817'/>
+      <provided namespace='osgi.identity' name='com.kms.example.rcp.ui.contribute' version='1.0.0.202111170817'>
+        <properties size='1'>
+          <property name='type' value='osgi.bundle'/>
+        </properties>
+      </provided>
+      <provided namespace='org.eclipse.equinox.p2.eclipse.type' name='bundle' version='1.0.0'/>
+    </provides>
+    <requires size='12'>
+      <required namespace='osgi.bundle' name='org.eclipse.core.runtime' range='3.18.0'/>
+      <required namespace='osgi.bundle' name='org.eclipse.jface' range='3.20.0'/>
+      <required namespace='osgi.bundle' name='org.eclipse.e4.core.di' range='1.7.600'/>
+      <required namespace='osgi.bundle' name='org.eclipse.e4.ui.workbench' range='1.11.300'/>
+      <required namespace='osgi.bundle' name='org.eclipse.e4.ui.di' range='1.2.800'/>
+      <required namespace='osgi.bundle' name='org.eclipse.e4.ui.model.workbench' range='2.1.700.v20200113-1422'/>
+      <required namespace='osgi.bundle' name='org.eclipse.osgi.util' range='3.5.300'/>
+      <required namespace='osgi.bundle' name='com.kms.example.rcp.ui' range='1.0.0'/>
+      <required namespace='java.package' name='javax.annotation' range='1.2.0'/>
+      <required namespace='java.package' name='javax.inject' range='1.0.0'/>
+      <required namespace='java.package' name='org.eclipse.e4.core.services.events' range='0.0.0'/>
+      <requiredProperties namespace='osgi.ee' match='(&amp;(osgi.ee=JavaSE)(version=1.8))'/>
+    </requires>
+    <artifacts size='1'>
+      <artifact classifier='osgi.bundle' id='com.kms.example.rcp.ui.contribute' version='1.0.0.202111170817'/>
+    </artifacts>
+    <touchpoint id='org.eclipse.equinox.p2.osgi' version='1.0.0'/>
+    <touchpointData size='1'>
+      <instructions size='1'>
+        <instruction key='manifest'>
+          Bundle-SymbolicName: com.kms.example.rcp.ui.contribute;singleton:=true&#xA;Bundle-Version: 1.0.0.202111170817&#xA;
+        </instruction>
+      </instructions>
+    </touchpointData>
+  </unit>
+</units>

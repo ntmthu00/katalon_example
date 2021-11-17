@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Automatic-Module-Name: com.kms.example.rcp.core
+Bundle-SymbolicName: com.kms.example.rcp.core
+Export-Package: com.kms.example.rcp.core.object
+Bundle-Name: Core
+Bundle-Version: 1.0.0.202111170817
+Require-Bundle: org.eclipse.equinox.registry;bundle-version="3.8.800",
+ org.eclipse.osgi;bundle-version="3.15.300",org.eclipse.core.commands,
+ org.eclipse.ui.workbench
+Bundle-ManifestVersion: 2
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-Vendor: KMS
+
