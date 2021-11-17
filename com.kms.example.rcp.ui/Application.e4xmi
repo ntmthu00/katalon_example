@@ -8,7 +8,9 @@
     </children>
     <children xsi:type="basic:PartSashContainer" xmi:id="_vEMSUDegEeyz09OrpcilXA" elementId="com.kms.example.rcp.ui.partsashcontainer.1">
       <children xsi:type="basic:PartStack" xmi:id="_vpBdsDegEeyz09OrpcilXA" elementId="com.kms.example.rcp.ui.partstack.1">
-        <children xsi:type="basic:Part" xmi:id="_X9cjwDehEeyz09OrpcilXA" elementId="com.kms.example.rcp.ui.part.avatar" contributionURI="bundleclass://com.kms.example.rcp.ui/com.kms.example.rcp.ui.parts.AvatarPart" label="Avatar"/>
+        <children xsi:type="basic:Part" xmi:id="_X9cjwDehEeyz09OrpcilXA" elementId="com.kms.example.rcp.ui.part.avatar" contributionURI="bundleclass://com.kms.example.rcp.ui/com.kms.example.rcp.ui.parts.AvatarPart" label="Avatar">
+          <toolbar xmi:id="_r8_AMEdLEeyX2MIs22JAhQ" elementId="com.kms.example.rcp.ui.toolbar.avatar"/>
+        </children>
       </children>
       <children xsi:type="basic:PartStack" xmi:id="_wEcOYDegEeyz09OrpcilXA" elementId="com.kms.example.rcp.ui.partstack.2">
         <children xsi:type="basic:Part" xmi:id="_ZVEeADehEeyz09OrpcilXA" elementId="com.kms.example.rcp.ui.part.welcome" contributionURI="bundleclass://com.kms.example.rcp.ui/com.kms.example.rcp.ui.parts.WelcomePart" label="Welcome"/>

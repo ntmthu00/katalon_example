@@ -17,3 +17,4 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Import-Package: javax.annotation;version="1.2.0",
  javax.inject;version="1.0.0"
 Automatic-Module-Name: com.kms.example.rcp.ui
+Export-Package: com.kms.example.rcp.ui.constants

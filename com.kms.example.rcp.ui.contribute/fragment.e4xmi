@@ -7,9 +7,14 @@
   <fragments xsi:type="fragment:StringModelFragment" xmi:id="_vE_T8DiaEeyjZKEIlyqs8Q" featurename="commands" parentElementId="com.kms.example.rcp.ui.application">
     <elements xsi:type="commands:Command" xmi:id="_14HNkDiaEeyjZKEIlyqs8Q" elementId="com.kms.example.rcp.ui.contribute.command.welcome" commandName="Welcome"/>
     <elements xsi:type="commands:Command" xmi:id="_3ZI7cDiaEeyjZKEIlyqs8Q" elementId="com.kms.example.rcp.ui.contribute.command.about" commandName="About"/>
+    <elements xsi:type="commands:Command" xmi:id="_TdTTUEdNEeyX2MIs22JAhQ" elementId="com.kms.example.rcp.ui.contribute.command.zoom" commandName="Zoom"/>
   </fragments>
   <fragments xsi:type="fragment:StringModelFragment" xmi:id="_5A1SADiaEeyjZKEIlyqs8Q" featurename="handlers" parentElementId="com.kms.example.rcp.ui.application">
     <elements xsi:type="commands:Handler" xmi:id="_6SixgDiaEeyjZKEIlyqs8Q" elementId="com.kms.example.rcp.ui.contribute.handler.welcome" contributionURI="bundleclass://com.kms.example.rcp.ui.contribute/com.kms.example.rcp.ui.contribute.handlers.WelcomeHandler" command="_14HNkDiaEeyjZKEIlyqs8Q"/>
     <elements xsi:type="commands:Handler" xmi:id="_8ecoYDiaEeyjZKEIlyqs8Q" elementId="com.kms.example.rcp.ui.contribute.handler.about" contributionURI="bundleclass://com.kms.example.rcp.ui.contribute/com.kms.example.rcp.ui.contribute.handlers.AboutHandler" command="_3ZI7cDiaEeyjZKEIlyqs8Q"/>
+    <elements xsi:type="commands:Handler" xmi:id="_VQaPsEdNEeyX2MIs22JAhQ" elementId="com.kms.example.rcp.ui.contribute.handler.zoom" contributionURI="bundleclass://com.kms.example.rcp.ui.contribute/com.kms.example.rcp.ui.contribute.handlers.ZoomHandler" command="_TdTTUEdNEeyX2MIs22JAhQ"/>
+  </fragments>
+  <fragments xsi:type="fragment:StringModelFragment" xmi:id="_64HGQEdMEeyX2MIs22JAhQ" featurename="children" parentElementId="com.kms.example.rcp.ui.toolbar.avatar">
+    <elements xsi:type="menu:HandledToolItem" xmi:id="_AV3IYEdNEeyX2MIs22JAhQ" elementId="com.kms.example.rcp.ui.contribute.handledtoolitem.zoom" label="Zoom" iconURI="platform:/plugin/com.kms.example.rcp.ui.contribute/icons/zoom.png" command="_TdTTUEdNEeyX2MIs22JAhQ"/>
   </fragments>
 </fragment:ModelFragments>
